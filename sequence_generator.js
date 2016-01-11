@@ -97,15 +97,15 @@ function fib (size) {
 	return result;
 };
 
-var first = 0;
-var second = 0;
+// var first = 0;
+// var second = 0;
 function* sequenceGen(...args) {
   // Good Luck!
   	var index;
-  	if (args.length == 2) {
-  		first = args[0];
-  		second = args[1];
-  	};
+  	// if (args.length == 2) {
+  	// 	first = args[0];
+  	// 	second = args[1];
+  	// };
 
   	// next = first + second;
   	// first = second;
