@@ -14,21 +14,15 @@ When words have the same lengths, treat them in the order in which they exist in
 function longest(arr, n) {
 //code me
 	var ordered = [];
-	var count = 0;
 	//check each string's length, put them in some order
 	for (var i = 0; i < arr.length; i++) {
-		var c = [arr[i],  arr[i].length];
+		var c = [arr[i],  arr[i].length + (i/10)];
 		ordered.push(c);
-		count++;
 	};
 	//order within arr matters
-	if (count == arr.length) {
-
-	}else{
-		ordered.sort(function(a, b) {
-		    return a[1] - b[1];
-		});
-	}
+	ordered.sort(function(a, b) {
+	    return a[1] - b[1];
+	});
 
 	//find the nth in ordered arr
 	ordered.unshift([null],[null]);
