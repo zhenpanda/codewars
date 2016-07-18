@@ -41,14 +41,11 @@ function validName(array){
 				if (beforeNameLasteLetter.toUpperCase() == currentNameFirstLetter) {
 					valid = true;
 				} else {
-					valid = false;
+					return  "Back to the drawing board, your baby names are not compatible.";
 				}
 			}
 			if (valid) {
-				console.log(beforeNameLasteLetter, currentNameFirstLetter);
 				return "Congratulations, your baby names are compatible!";
-			} else {
-				return  "Back to the drawing board, your baby names are not compatible.";
 			}
 		}
 	}
