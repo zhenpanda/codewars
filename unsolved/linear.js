@@ -24,29 +24,30 @@ Focus attention on efficiency
 */
 
 
-function dbl_linear(n) {
+function dblLinear(n) {
 	// return uniques
 	function onlyUnique(value, index, self) { 
 	    return self.indexOf(value) === index;
 	}
 
 	// n equal to n-th number in the u sequence
-	var u = [1];
 	if (n > 0) {
-		var x = 1;
+		var x = 0;
 		var unique = [1];		
-		while(unique.length < n+2) {	
-			var y = 2 * x + 1;
-			var z = 3 * x + 1;
+		while(unique.length < n) {	
+			var v = unique[x-1];
+			var y = 2 * v + 1;
+			var z = 3 * v + 1;
 			unique.push(y);
 			unique.push(z);
 
-			//unique = u.filter( onlyUnique ); 
 			unique.sort(function(a, b){return a-b});
+			unique = unique.filter( onlyUnique ); 
 			console.log(unique);
+			
 			x++;
 		}
-		return unique;
+		return unique[n-1];
 
 	}else{
 		return 1;
