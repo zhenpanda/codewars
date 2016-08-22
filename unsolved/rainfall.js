@@ -105,5 +105,5 @@ function variance(town, strng) {
     }
 }
 
-mean("London", data);
-variance("London", data);
+// mean("London", data);
+// variance("London", data);
