@@ -36,36 +36,40 @@ recursive(1);
 // (6) - 2^2 = 2
 // (2) - 1^1 = 1
 // (1) - 1^1 = 0
+
+// 20 14 - 14*14
+
+
 function sqInRect(lng, wdth) {
-  //your code here
-  if (lng != wdth) {
-    function mathIt(longer,shorter) {
-      // subtract until zero area
-      var chop = function(n, ary) {
-          if (n <= 0) {
-            return ary;
-          } else {
-            if (n > 1) {
-              var x = 1;
-              while (Math.pow(x, 2) < n && x <= shorter) {
-                x++;
-              }
-              console.log(n,Math.pow(x-1, 2));
-              ary.push(x-1);
-              return chop(n - Math.pow(x-1, 2), ary);
-            }else{
-              ary.push(1);
-              return chop((n - 1), ary);
-            }
-          }
-      };
-      console.log(chop((longer * shorter),[]));
-      return (chop((longer * shorter),[]));
+  var r;
+  function mathIt(longer,shorter) {
+    var chop = function(area, max, ary) {
+      if (area <= 0) {
+        r = ary;
+        return;
+      }else {
+        var newArea = area - (max * max);
+        ary.push(max);
+        var newMax = Math.floor(Math.sqrt(newArea));
+        if (newMax > longer - shorter) {
+          newMax = longer - shorter;
+        }
+        chop(newArea, newMax, ary);
+      }
     };
-    lng > wdth ? (mathIt(lng, wdth)) : (mathIt(wdth,lng));
+    chop(longer*shorter, shorter, []);
+  };
+  if (lng != wdth) {
+    if (lng > wdth) {
+      mathIt(lng, wdth);
+    }else{
+      mathIt(wdth, lng);
+    }
   }else{
     return null;
   }
+  return r;
 }
+
 sqInRect(5, 3);
 sqInRect(20, 14);
