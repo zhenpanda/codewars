@@ -94,3 +94,21 @@ function cake(ingredient, amount){
   });
   return newRecipe;
 }
+
+//best practice
+
+//The Object.entries() method returns an array of a given object's own enumerable property [key, value] pairs, in the same order as that provided by a for...in loop (the difference being that a for-in loop enumerates properties in the prototype chain as well).
+
+var obj = { foo: "bar", baz: 42 };
+console.log(Object.entries(obj));
+// [ ['foo', 'bar'], ['baz', 42] ]
+
+const recipe = {'caster sugar': 160, 'butter': 170, 'eggs': 3, 'self-raising flour': 115, 'cocoa powder': 55};
+const cake = (ingredient, amount) => {
+  var mult = amount / recipe[ingredient];
+  return Object.entries(recipe).reduce((res, [ogI, ogA]) => {
+    let amount = +(ogA * mult).toFixed(1);
+    res[ogI] = ogI === 'eggs' ? amount : `${ amount }g`;
+    return res;
+  }, {});
+};
