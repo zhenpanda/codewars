@@ -27,21 +27,22 @@ Code Examples
 */
 
 function prefill(n, v) {
-  console.log(n,v)
+  let e = new TypeError(n + " is invalid");
   if (typeof v === 'object') {
-    if (Object.keys(v).length === 0) {
-      throw new TypeError()
-    }
+    if (Object.keys(v).length === 0) { throw e }
   }
-  if (Number.isInteger(Number(n))) {
+  if (Number.isInteger(parseInt(n))) {
     if (parseInt(n) == 0) { return []}
+    if (parseInt(n) < 0) {  throw e }
+    if (Number.isInteger(parseFloat(n)) == false) { throw e }
     return Array(n).fill(v);
   }
-  throw new TypeError(n + " is invalid");
+ throw e;
 }
 
-prefill(3,1)
+// prefill(3,1)
 // prefill(2,"abc")
 // prefill("1", 1)
 // prefill(3, prefill(2,'2d'));
 // prefill("xyz", 1)
+prefill(1.9681015500976342, 1)
