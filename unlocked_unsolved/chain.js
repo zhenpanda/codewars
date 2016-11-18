@@ -229,6 +229,7 @@ var c = chain({sum: sum, minus: minus, double: double, addOne: addOne});
 
 // saving result as an input, treating it as a variable
 function chain(fns, result) {
+  // this is always the same
   var ret = {
     execute: function() {
       return result;
@@ -236,6 +237,7 @@ function chain(fns, result) {
   };
   // looping through the fns obj
   for (let key of Object.keys(fns)) {
+    // create a new funtion as a key of the obj
     ret[key] = function() {
       // create arguments that is new
       var args = Array.prototype.slice.call(arguments);
@@ -250,16 +252,29 @@ function chain(fns, result) {
   console.log(ret)
   return ret;
 }
-c.sum(4, 5).sum(5).minus(4).sum(7).addOne().double().double().execute();
+c.sum(4,5).sum(5).minus(4).sum(7).addOne().double().double().execute();
 
 
 
+// always holding the variable
+function hold(input, result) {
+    return {
+      e: function() {
+        console.log(result)
+        return result;
+      },
+      f: function(){
+        var arg = Array.prototype.slice.call(arguments);
+        // arg.unshift(result);
+        console.log(input,arg)
+        return hold(input, input.apply(this, arg))
+      }
+    }
+}
 
-
-
-
-
-
+function sum(x, y) {return x + y}
+var t = hold(sum)
+t.f(1,5).e();
 
 
 //
