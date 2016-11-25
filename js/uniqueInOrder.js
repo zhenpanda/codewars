@@ -30,6 +30,10 @@ var uniqueInOrder = function(iterable){
   }else{
     return (read(iterable.split("")))
   }
-
 };
+
 uniqueInOrder('ABBCcAD')
+
+var uniqueInOrder = function (iterable) {
+  return [].filter.call(iterable, (function (a, i) { return iterable[i - 1] !== a }));
+}
