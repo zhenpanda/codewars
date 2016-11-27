@@ -43,24 +43,32 @@ Good luck!
 //   '0000000': ' '
 // };
 
+// let bitsShrinked = [];
+// // bits timing at 2 chars per unit long
+// bits.split("").map((e,i,a)=>{
+//   if (i%2===0) bitsShrinked.push(e);
+// });
+// console.log(bitsShrinked.join(""));
+
 var decodeBits = function(bits){
-    // ToDo: Accept 0's and 1's, return dots, dashes and spaces
-    let bitsShrinked = [];
-    // bits timing at 2 chars per unit long
-    bits.split("").map((e,i,a)=>{
-      if (i%2===0) bitsShrinked.push(e);
-    });
-    // console.log(bitsShrinked.join(""));
+    // learn pattern
+    console.log(bits)
     function reader(str, currentChar=null, code='') {
-      console.log(str, str.length, ' <- str input');
+      // console.log(str, str.length, ' <- str input');
       // find current char if missing
-      if (currentChar == null) currentChar = str.substring(0,1);
+      let nextChar = "";
+      if (currentChar == null) {
+        currentChar = str[0];
+        nextChar = str[1];
+      }else {
+        nextChar = str[1];
+      };
       // break off the top piece of str
       let newStr = str.slice(1, str.length);
-      console.log(newStr, newStr.length, " + ", currentChar, " + ", code)
+      // console.log(newStr, newStr.length, " + ", currentChar, " + ", code)
 
       // if there is difference btw currentChar's end next check the currentChar
-      if (currentChar[currentChar.length-1] !== newStr[0]) {
+      if (currentChar[currentChar.length-1] !== nextChar) {
         // read the character add to the code string
         switch (currentChar) {
           case '0000000':
@@ -84,15 +92,17 @@ var decodeBits = function(bits){
             currentChar=null;
             break;
         };
+      }else{
+        currentChar = currentChar + nextChar;
       }
 
       // stop the recursion
-      // if (newStr.length == 1) return (code);
+      if (newStr.length == 0) return (code);
 
       // recursion
-      // return reader(newStr, currentChar, code)
+      return reader(newStr, currentChar, code)
     }
-    return reader(bitsShrinked.join(""));
+    return reader(bits);
 }
 
 decodeBits('1100110011001100000011000000111111001100111111001111110000000000000011001111110011111100111111000000110011001111110000001111110011001100000011');
@@ -100,6 +110,7 @@ decodeBits('11001100110011000000110000001111110011001111110011111100000000000000
 
 // reverse enginered function
 //"101010100010001110101110111000000010111011101110001010111000111010100010"
+
 function rev(input) {
   let nums = "";
   let arr = input.split("");
@@ -117,7 +128,6 @@ function rev(input) {
   return nums;
 }
 rev('···· · −·−−   ·−−− ··− −·· ·');
-
 
 // var decodeMorse = function(morseCode){
 //     // ToDo: Accept dots, dashes and spaces, return human-readable message
