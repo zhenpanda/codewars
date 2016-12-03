@@ -12,19 +12,18 @@
 # Output string must be two numbers separated by a single space, and highest number is first.
 
 
-def highAndLow(numbers)
+def high_and_low(numbers)
   nums = numbers.split
   len = nums.size
   small = nums[0]
   big = nums[0]
-
-  (0...len).each do |i|
+  (1...len).each do |i|
     if nums[i] > big
       big = nums[i]
-    elsif nums[i] < small
+    end
+    if nums[i] < small
       small = nums[i]
     end
   end
-
   return (big + " " + small)
 end
