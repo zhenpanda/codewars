@@ -91,17 +91,99 @@ function getPINs(observed) {
   };
   let arrIndexValues = []
   for (let i=0; i<possibleKeys.length; i++) {arrIndexValues.push(possibleKeys[i].length)}
-  console.table(arrIndexValues)
+  // console.table(arrIndexValues)
 
   // exec callManyTimes
   let result = [];
   callManyTimes(arrIndexValues, (a)=>{
     // unwrap combo from possibleKeys arr
-    console.log(a)
+    let combo = "";
+    for (let c=0; c<possibleKeys.length; c++) {
+      let innerIndex = a[c];
+      combo+=possibleKeys[c][innerIndex];
+    }
+    result.push(combo);
   });
-  // return result;
+  return result;
 }
 
 // getPINs(8) // ["5", "7", "8", "9", "0"]
-getPINs(11) // ["11", "22", "44", "12", "21", "14", "41", "24", "42"]
-// getPINs(369) // 36 combos //["339","366","399","658","636","258","268","669","668","266","369","398","256","296","259","368","638","396","238","356","659","639","666","359","336","299","338","696","269","358","656","698","699","298","236","239"]
+// getPINs(11) // ["11", "22", "44", "12", "21", "14", "41", "24", "42"]
+getPINs(369) // 36 combos //["339","366","399","658","636","258","268","669","668","266","369","398","256","296","259","368","638","396","238","356","659","639","666","359","336","299","338","696","269","358","656","698","699","298","236","239"]
+
+
+// cleaned up
+
+function getPINs(observed) {
+  let keypad = [
+    [1,2,3],
+    [4,5,6],
+    [7,8,9],
+    [ ,0, ]
+  ];
+  function adjKeysFinder(keypadLayout,num) {
+    let rowPos, colPos;
+    keypadLayout.map((rowCur,rowInx,rowArr)=>{
+      rowCur.map((colCur,colInx,colArr)=>{
+        if (colCur===num) {rowPos = rowInx;colPos = colInx;}
+      })
+    })
+    let adjKeys = [num];
+    if (rowPos-1 > -1)
+      if (Number.isInteger(keypadLayout[rowPos-1][colPos]))
+      adjKeys.push(keypadLayout[rowPos-1][colPos])
+    if (rowPos+1 <= 3)
+      if (Number.isInteger(keypadLayout[rowPos+1][colPos]))
+      adjKeys.push(keypadLayout[rowPos+1][colPos])
+    if (colPos-1 > -1)
+      if (Number.isInteger(keypadLayout[rowPos][colPos-1]))
+      adjKeys.push(keypadLayout[rowPos][colPos-1])
+    if (colPos+1 <= 2)
+      if (Number.isInteger(keypadLayout[rowPos][colPos+1]))
+      adjKeys.push(keypadLayout[rowPos][colPos+1])
+    return adjKeys
+  }
+  let possibleKeys = [];
+  String(observed).split("").map((n)=>{ possibleKeys.push(adjKeysFinder(keypad,parseInt(n))) })
+  function callManyTimes(maxIndices, func) {doCallManyTimes(maxIndices, func, [], 0);}
+  function doCallManyTimes(maxIndices, func, args, index) {
+    if(maxIndices.length == 0) {
+      func(args);
+    }else{
+      let rest = maxIndices.slice(1);
+      for(args[index] = 0; args[index] < maxIndices[0]; args[index]++) {
+          doCallManyTimes(rest, func, args, index + 1);
+      }
+    }
+  };
+  let arrIndexValues = []
+  for (let i=0; i<possibleKeys.length; i++) {arrIndexValues.push(possibleKeys[i].length)}
+  let result = [];
+  callManyTimes(arrIndexValues, (a)=>{
+    let combo = "";
+    for (let c=0; c<possibleKeys.length; c++) {
+      let innerIndex = a[c];
+      combo+=possibleKeys[c][innerIndex];
+    }
+    result.push(combo);
+  });
+  return result;
+}
+
+// WTF one line???
+function getPINs(observed) {
+  return observed.split('')
+  .map( t => ({
+    '0': [ '0', '8' ],
+    '1': [ '1', '2', '4' ],
+    '2': [ '1', '2', '3', '5' ],
+    '3': [ '2', '3', '6' ],
+    '4': [ '1', '4', '5', '7' ],
+    '5': [ '2', '4', '5', '6', '8' ],
+    '6': [ '3', '5', '6', '9' ],
+    '7': [ '4', '7', '8' ],
+    '8': [ '5', '7', '8', '9', '0' ],
+    '9': [ '6', '8', '9' ]
+  }[t]))
+  .reduce((pre, cur)=> [].concat.apply([], pre.map(t => cur.map(g => t + g))));
+}
