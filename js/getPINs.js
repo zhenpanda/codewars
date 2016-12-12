@@ -113,7 +113,6 @@ getPINs(369) // 36 combos //["339","366","399","658","636","258","268","669","66
 
 
 // cleaned up
-
 function getPINs(observed) {
   let keypad = [
     [1,2,3],
