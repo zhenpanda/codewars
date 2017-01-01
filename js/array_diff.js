@@ -28,3 +28,7 @@ function array_diff(a, b) {
   return outArr;
 }
 array_diff([1,2,2,2,3],[2])
+
+function array_diff(a, b) {
+  return a.filter(function(x) { return b.indexOf(x) == -1; });
+}
