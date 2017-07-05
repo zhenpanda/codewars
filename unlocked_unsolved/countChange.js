@@ -91,7 +91,7 @@ var countChange = function(money, coins) {
 
 let countChange = (amount, coins) => {
   let [coin, ...rest] = coins
-  console.log(coins);
+  console.log(coin, rest, amount, coins);
   if (!coin)       return 0
   if (amount <  0) return 0
   if (amount == 0) return 1
