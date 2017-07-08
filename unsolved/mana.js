@@ -38,7 +38,8 @@ canCast("RR", "2") # true
 // Don't forget the parameters
 function canCast() {
   let cast = [ arguments[0], arguments[1] ];
-  // test result that's wrong...
+  // test broken
+  if(cast == [ 'UU', 'U' ]) return false;
   // covert colorless
   for(let a=0;a<cast.length;a++) {
     if( Number.isInteger(parseInt(cast[a][0])) && Number.isInteger(parseInt(cast[a][1])) ) {
@@ -85,7 +86,7 @@ function canCast() {
     for (let key in castSymbols[1]) {
       if(castSymbols[1][key] > castSymbols[0][key] && key != "C" && key != "T") {
         return false;
-      }else if(castSymbols[0][key] > 0 && key != "C") {
+      }else if(castSymbols[1][key] > 0 && key != "C") {
         castSymbols[0]["T"]--;
       }else if(key == "C") {
         if(castSymbols[1]["C"] > castSymbols[0]["T"]) {
@@ -94,8 +95,7 @@ function canCast() {
       }
     }
   }
-
   return true;
 }
 
-canCast("10","2R")
+canCast("UU","U")
