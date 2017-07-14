@@ -97,3 +97,25 @@ function permutations(s) {
   for (let k in memo) {res.push(k)}
   return res;
 };
+
+// other solutions
+
+function permutations(string) {
+  var arr = string.split(''), tmp = arr.slice(), heads = [], out = [];
+  if(string.length == 1) return [string];
+  arr.forEach(function(v, i, arr) {
+    if(heads.indexOf(v) == -1) {
+      heads.push(v);
+      tmp.splice(tmp.indexOf(v), 1);
+      permutations(tmp.join('')).forEach(function(w) {out.push(v + w);});
+      tmp.push(v);
+    }
+  });
+  return out;
+}
+
+function permutations(string) {
+  return (string.length == 1) ? [string] : string.split('').map(
+     (e, i) => permutations(string.slice(0,i) + string.slice(i+1)).map((e2) => e+e2)
+  ).reduce((r,e) => r.concat(e)).sort().filter((e,i,a) => (i==0) || a[i-1] != e);
+}
