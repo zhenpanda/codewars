@@ -33,14 +33,14 @@ There is no ranking for the suits.
 
 // check for most winning hand first
 /*
-  straight flush  (order,suits matter) (1 - 9) * 100,000,000
-  four of a kind  (number matter) rank (1 - 13) * 10,000,000
-  full house      (number matter) rank (12 - 26) * 1,000,000
-  flush           (suits matter) rank (1 - 13) * 100,000
-  straight        (order, matter) rank (1 - 9) * 10,000
-  three of a kind (number matter) rank (1 - 13) * 1000
-  two pair        (number matter) rank (12 - 26) * 100
-  pair            (number matter) rank (1 - 13) * 10
+  straight flush  (order,suits matter) (1 - 9) * 900,000,000
+  four of a kind  (number matter) rank (1 - 13) * 80,000,000
+  full house      (number matter) rank (12 - 26) * 7,000,000
+  flush           (suits matter) rank (1 - 13) * 600,000
+  straight        (order, matter) rank (1 - 9) * 50,000
+  three of a kind (number matter) rank (1 - 13) * 4000
+  two pair        (number matter) rank (12 - 26) * 300
+  pair            (number matter) rank (1 - 13) * 20
 
   *high card      (number matter) rank (1 - 13) * 1
 */
