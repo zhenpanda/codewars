@@ -25,6 +25,7 @@ function simplify(number){
             let suffix = "";
             if(d !== numStr.length - 1) {
                 
+                // idk super high
                 suffix = ("1"+zeros) + "+";
             }
             output = output + numStr[d] + "*" + suffix;
